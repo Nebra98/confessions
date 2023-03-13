@@ -15,6 +15,8 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <script src="https://kit.fontawesome.com/804834f0e7.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div id="app">
@@ -35,6 +37,9 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('confessions.create') }}"><i class="fa-solid fa-feather"></i> Ostavi ispovijed</a>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))

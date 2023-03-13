@@ -19,11 +19,11 @@ class ConfessionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * @return View
      */
-    public function create()
+    public function create() : View
     {
-
+        return view('confessions.create');
     }
 
     /**

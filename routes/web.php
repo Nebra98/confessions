@@ -18,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\ConfessionController::class, 'index'])->name('confessions');
+Route::get('/confessions/create', [App\Http\Controllers\ConfessionController::class, 'create'])->name('confessions.create');
