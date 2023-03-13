@@ -20,3 +20,6 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\ConfessionController::class, 'index'])->name('confessions');
 Route::get('/confessions/create', [App\Http\Controllers\ConfessionController::class, 'create'])->name('confessions.create');
 Route::post('/confessions', [App\Http\Controllers\ConfessionController::class, 'store'])->name('confessions.store');
+Route::get('/sort/najstarije', [App\Http\Controllers\ConfessionController::class, 'sortAsc'])->name('confessions.sortAsc');
+Route::get('/sort/najnovije', [App\Http\Controllers\ConfessionController::class, 'sortDsc'])->name('confessions.sortDsc');
+Route::get('/sort/slucajno', [App\Http\Controllers\ConfessionController::class, 'sortRnd'])->name('confessions.sortRnd');
