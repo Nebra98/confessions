@@ -31,7 +31,14 @@ class ConfessionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formFields = $request->validate([
+           'user_name' => 'required',
+            'confession' => 'required|max:1000'
+        ]);
+
+        Confession::create($formFields);
+
+        return redirect('/')->with('success', 'Ispovijest je uspješno kreirana!');
     }
 
     /**
