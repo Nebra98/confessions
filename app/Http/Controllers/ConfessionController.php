@@ -13,7 +13,7 @@ class ConfessionController extends Controller
      */
     public function index() : View
     {
-        $confessions = Confession::all();
+        $confessions = Confession::latest()->paginate(5);
 
         return view('confessions.index')->with('confessions', $confessions);
     }
