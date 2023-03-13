@@ -13,4 +13,12 @@ class Confession extends Model
         'user_id', 'user_name', 'confession'
     ];
 
+    public function scopeFilter($query, array $filters){
+
+        if($filters['search'] ?? false){
+            $query->where('confession', 'like', '%' . request('search') . '%')
+                ->orWhere('id', 'like', '%' . request('search') . '%');
+        }
+    }
+
 }

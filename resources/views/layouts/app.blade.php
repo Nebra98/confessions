@@ -40,6 +40,25 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
+                        <form action="/">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="search" placeholder="Pretraži po tekstu ili ID-u" aria-label="Text input with segmented dropdown button">
+                            <button type="submit" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
+                            <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Sortiraj</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ route('confessions.sortDsc') }}"><i class="fas fa-arrow-down"></i> Najnovije</a></li>
+                                <li><a class="dropdown-item" href="{{ route('confessions.sortRnd') }}"><i class="fas fa-random"></i> Slučajno</a></li>
+                                <li><a class="dropdown-item" href="{{ route('confessions.sortAsc') }}"><i class="fas fa-arrow-up"></i> Najstarije</a></li>
+                            </ul>
+                        </div>
+                        </form>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('confessions.create') }}"><i class="fa-solid fa-feather"></i>
                             Ostavi ispovijed</a>
                     </li>
@@ -47,13 +66,13 @@
                     @guest
                         @if (Route::has('login'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Prijavi se') }}</a>
                             </li>
                         @endif
 
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}"><i class="fas fa-user-plus"></i> {{ __('Registriraj se') }}</a>
                             </li>
                         @endif
                     @else

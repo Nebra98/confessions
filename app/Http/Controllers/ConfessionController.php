@@ -13,7 +13,7 @@ class ConfessionController extends Controller
      */
     public function index() : View
     {
-        $confessions = Confession::latest()->paginate(5);
+        $confessions = Confession::latest()->filter(\request(['confession', 'search']))->paginate(5);
 
         return view('confessions.index')->with('confessions', $confessions);
     }
@@ -72,4 +72,28 @@ class ConfessionController extends Controller
     {
         //
     }
+
+    public function sortAsc() : View
+    {
+        $confessions = Confession::orderBy('created_at', 'ASC')->paginate(5);
+
+        return view('confessions.index')->with('confessions', $confessions);
+
+    }
+
+    public function sortDsc() : View
+    {
+        $confessions = Confession::orderBy('created_at', 'DESC')->paginate(5);
+
+        return view('confessions.index')->with('confessions', $confessions);
+    }
+
+    public function sortRnd() : View
+    {
+        $confessions = Confession::inRandomOrder()->paginate(5);
+
+        return view('confessions.index')->with('confessions', $confessions);
+
+    }
+
 }
