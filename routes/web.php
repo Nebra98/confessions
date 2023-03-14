@@ -23,3 +23,5 @@ Route::post('/confessions', [App\Http\Controllers\ConfessionController::class, '
 Route::get('/sort/najstarije', [App\Http\Controllers\ConfessionController::class, 'sortAsc'])->name('confessions.sortAsc');
 Route::get('/sort/najnovije', [App\Http\Controllers\ConfessionController::class, 'sortDsc'])->name('confessions.sortDsc');
 Route::get('/sort/slucajno', [App\Http\Controllers\ConfessionController::class, 'sortRnd'])->name('confessions.sortRnd');
+
+Route::get('confessions/{confession}', [App\Http\Controllers\ConfessionController::class, 'show'])->name('confessions.show');

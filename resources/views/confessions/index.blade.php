@@ -24,7 +24,11 @@
                                                     <p class="text-dark">#{{$confession->id }} objavio: {{ $confession->user_name }}</p>
                                                     <p class="text-dark">Objavljeno: {{ \Carbon\Carbon::parse($confession->created_at)->diffForHumans() }}</p>
                                                 </div>
-                                                <p class="card-text">{{ $confession->confession }}</p>
+
+                                                <a class="text-decoration-none text-dark" href="{{ route('confessions.show', $confession) }}">
+                                                    <p class="card-text">{{ $confession->confession }}</p>
+                                                </a>
+
                                             </div>
                                         </div>
                                     </div>
