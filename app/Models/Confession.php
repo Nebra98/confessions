@@ -21,4 +21,8 @@ class Confession extends Model
         }
     }
 
+    public function comments(){
+        return $this->hasMany(Comment::class, 'confession_id');
+    }
+
 }
