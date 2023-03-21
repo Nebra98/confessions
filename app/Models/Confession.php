@@ -30,5 +30,11 @@ class Confession extends Model
         return $this->hasMany(Like::class, 'confession_id');
     }
 
+    public function dislikes()
+    {
+        return $this->hasMany(Dislike::class, 'confession_id');
+
+    }
+
 
 }
