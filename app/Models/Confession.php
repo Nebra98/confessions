@@ -25,4 +25,10 @@ class Confession extends Model
         return $this->hasMany(Comment::class, 'confession_id');
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'confession_id');
+    }
+
+
 }
