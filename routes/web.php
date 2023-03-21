@@ -25,3 +25,6 @@ Route::get('/sort/najnovije', [App\Http\Controllers\ConfessionController::class,
 Route::get('/sort/slucajno', [App\Http\Controllers\ConfessionController::class, 'sortRnd'])->name('confessions.sortRnd');
 
 Route::get('confessions/{confession}', [App\Http\Controllers\ConfessionController::class, 'show'])->name('confessions.show');
+
+Route::get('comments/commentslist/{confession}', [\App\Http\Controllers\CommentController::class, 'getComments']);
+Route::resource('comments', \App\Http\Controllers\CommentController::class);

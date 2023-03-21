@@ -30,6 +30,15 @@
                                                 </a>
 
                                             </div>
+                                            <div class="card-footer">
+                                                <button type="button" class="btn btn-secondary"><i class="fas fa-heart"></i> Odobravam</button>
+                                                <button type="button" class="btn btn-secondary"><i class="fas fa-heart-broken"></i> Osuđujem</button>
+
+                                                <a href="{{ route('confessions.show', $confession) }}" role="button" class="btn btn-secondary">
+                                                    <i class="fas fa-comment"></i> <span class="badge badge-light">{{count($confession->comments)}}</span>
+                                                </a>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
