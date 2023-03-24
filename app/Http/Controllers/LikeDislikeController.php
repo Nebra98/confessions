@@ -46,4 +46,42 @@ class LikeDislikeController extends Controller
 
     }
 
+    public function dislike(Request $request)
+    {
+        $confession_id = $request->input('confession_id');
+        $user_id = Auth::id();
+
+        $like = Like::where('confession_id', $confession_id)->where('user_id', $user_id);
+
+        if($like)
+        {
+            $like->delete();
+
+            $dislike = new Dislike();
+            $dislike->confession_id = $confession_id;
+            $dislike->user_id = $user_id;
+            $dislike->save();
+
+            return response()->json(['success' => true, 'action' => 'dislike']);
+        }
+
+        $dislike = Dislike::where('confession_id', $confession_id)->where('user_id', $user_id);
+
+        if($dislike)
+        {
+            $dislike->delete();
+
+            return response()->json(['success' => true, 'action' => 'undislike']);
+
+        }
+
+        $dislike = new Dislike();
+        $dislike->confession_id = $confession_id;
+        $dislike->user_id = $user_id;
+        $dislike->save();
+
+        return response()->json(['success' => true, 'action' => 'dislike']);
+
+    }
+
 }
