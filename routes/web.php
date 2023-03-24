@@ -28,3 +28,5 @@ Route::get('confessions/{confession}', [App\Http\Controllers\ConfessionControlle
 
 Route::get('comments/commentslist/{confession}', [\App\Http\Controllers\CommentController::class, 'getComments']);
 Route::resource('comments', \App\Http\Controllers\CommentController::class);
+
+Route::post('like', [App\Http\Controllers\LikeDislikeController::class, 'like'])->name('like');
