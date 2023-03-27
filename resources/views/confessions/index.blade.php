@@ -1,4 +1,5 @@
 @extends('layouts.app')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 @section('content')
     <div class="container">
@@ -31,8 +32,8 @@
 
                                             </div>
                                             <div class="card-footer">
-                                                <button type="button" class="btn btn-secondary"><i class="fas fa-heart"></i> Odobravam</button>
-                                                <button type="button" class="btn btn-secondary"><i class="fas fa-heart-broken"></i> Osuđujem</button>
+                                                <button class="btn btn-secondary like-button" id="buttonSubmitLike" data-confession-id="{{ $confession->id }}"><i class="fas fa-heart"></i> Odobravam <span class="badge badge-light" id="likeCount{{$confession->id}}">{{count($confession->likes)}}</span></button>
+                                                <button class="btn btn-secondary dislike-button" data-confession-id="{{ $confession->id }}"><i class="fas fa-heart-broken"></i> Osuđujem <span class="badge badge-light" id="dislikeCount{{$confession->id}}">{{count($confession->dislikes)}}</span></button>
 
                                                 <a href="{{ route('confessions.show', $confession) }}" role="button" class="btn btn-secondary">
                                                     <i class="fas fa-comment"></i> <span class="badge badge-light">{{count($confession->comments)}}</span>
@@ -59,3 +60,56 @@
         </div>
     </div>
 @endsection
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $(document).on('click', '.like-button', function() {
+            var confession_id = $(this).data('confession-id');
+
+            $.ajax({
+                url: '{{ route("like") }}',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'confession_id': confession_id,
+                    '_token': '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    // Update the UI to show the like has been added
+
+                    var likeCountId = '#likeCount' + confession_id;
+                    var dislikeCountId = '#dislikeCount' + confession_id;
+                    $(likeCountId).html(data.likesCount);
+                    $(dislikeCountId).html(data.dislikesCount);
+
+                }
+            });
+        });
+
+        $(document).on('click', '.dislike-button', function() {
+            var confession_id = $(this).data('confession-id');
+
+            $.ajax({
+                url: '{{ route("dislike") }}',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'confession_id': confession_id,
+                    '_token': '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    // Update the UI to show the dislike has been added
+
+                    var likeCountId = '#likeCount' + confession_id;
+                    var dislikeCountId = '#dislikeCount' + confession_id;
+                    $(likeCountId).html(data.likesCount);
+                    $(dislikeCountId).html(data.dislikesCount);
+
+                }
+            });
+        });
+    });
+
+</script>
+

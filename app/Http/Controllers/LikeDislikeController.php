@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Confession;
 use App\Models\Dislike;
 use App\Models\Like;
 use Illuminate\Http\Request;
@@ -13,6 +14,8 @@ class LikeDislikeController extends Controller
     {
         $confession_id = $request->input('confession_id');
         $user_id = Auth::id();
+        $confession = Confession::findOrFail($confession_id);
+
 
         $dislike = Dislike::where('confession_id', $confession_id)->where('user_id', $user_id)->first();
 
@@ -25,7 +28,16 @@ class LikeDislikeController extends Controller
             $like->user_id = $user_id;
             $like->save();
 
-            return response()->json(['success' => true, 'action' => 'like']);
+            $likesCount = $confession->likes()->count();
+            $dislikesCount = $confession->dislikes()->count();
+
+            return response()->json([
+                'success' => true,
+                'action' => 'like',
+                'likesCount' => $likesCount,
+                'dislikesCount' => $dislikesCount
+            ]);
+
         }
 
         $like = Like::where('confession_id', $confession_id)->where('user_id', $user_id)->first();
@@ -34,7 +46,16 @@ class LikeDislikeController extends Controller
         {
             $like->delete();
 
-            return response()->json(['success' => true, 'action' => 'unlike']);
+            $likesCount = $confession->likes()->count();
+            $dislikesCount = $confession->dislikes()->count();
+
+            return response()->json([
+                'success' => true,
+                'action' => 'unlike',
+                'likesCount' => $likesCount,
+                'dislikesCount' => $dislikesCount
+            ]);
+
         }
 
         $like = new Like();
@@ -42,7 +63,15 @@ class LikeDislikeController extends Controller
         $like->user_id = $user_id;
         $like->save();
 
-        return response()->json(['success' => true, 'action' => 'like']);
+        $likesCount = $confession->likes()->count();
+        $dislikesCount = $confession->dislikes()->count();
+
+        return response()->json([
+            'success' => true,
+            'action' => 'like',
+            'likesCount' => $likesCount,
+            'dislikesCount' => $dislikesCount
+        ]);
 
     }
 
@@ -50,6 +79,7 @@ class LikeDislikeController extends Controller
     {
         $confession_id = $request->input('confession_id');
         $user_id = Auth::id();
+        $confession = Confession::findOrFail($confession_id);
 
         $like = Like::where('confession_id', $confession_id)->where('user_id', $user_id)->first();
 
@@ -61,7 +91,15 @@ class LikeDislikeController extends Controller
             $dislike->user_id = $user_id;
             $dislike->save();
 
-            return response()->json(['success' => true, 'action' => 'dislike']);
+            $likesCount = $confession->likes()->count();
+            $dislikesCount = $confession->dislikes()->count();
+
+            return response()->json([
+                'success' => true,
+                'action' => 'dislike',
+                'likesCount' => $likesCount,
+                'dislikesCount' => $dislikesCount
+            ]);
 
         }
 
@@ -70,7 +108,16 @@ class LikeDislikeController extends Controller
         if ($dislike) {
             $dislike->delete();
 
-            return response()->json(['success' => true, 'action' => 'undislike']);
+            $likesCount = $confession->likes()->count();
+            $dislikesCount = $confession->dislikes()->count();
+
+            return response()->json([
+                'success' => true,
+                'action' => 'undislike',
+                'likesCount' => $likesCount,
+                'dislikesCount' => $dislikesCount
+            ]);
+
         }
 
         $dislike = new Dislike();
@@ -78,7 +125,16 @@ class LikeDislikeController extends Controller
         $dislike->user_id = $user_id;
         $dislike->save();
 
-        return response()->json(['success' => true, 'action' => 'dislike']);
+        $likesCount = $confession->likes()->count();
+        $dislikesCount = $confession->dislikes()->count();
+
+        return response()->json([
+            'success' => true,
+            'action' => 'dislike',
+            'likesCount' => $likesCount,
+            'dislikesCount' => $dislikesCount
+        ]);
+
     }
 
 }
