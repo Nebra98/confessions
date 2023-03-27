@@ -51,10 +51,9 @@ class LikeDislikeController extends Controller
         $confession_id = $request->input('confession_id');
         $user_id = Auth::id();
 
-        $like = Like::where('confession_id', $confession_id)->where('user_id', $user_id);
+        $like = Like::where('confession_id', $confession_id)->where('user_id', $user_id)->first();
 
-        if($like)
-        {
+        if ($like) {
             $like->delete();
 
             $dislike = new Dislike();
@@ -63,16 +62,15 @@ class LikeDislikeController extends Controller
             $dislike->save();
 
             return response()->json(['success' => true, 'action' => 'dislike']);
+
         }
 
-        $dislike = Dislike::where('confession_id', $confession_id)->where('user_id', $user_id);
+        $dislike = Dislike::where('confession_id', $confession_id)->where('user_id', $user_id)->first();
 
-        if($dislike)
-        {
+        if ($dislike) {
             $dislike->delete();
 
             return response()->json(['success' => true, 'action' => 'undislike']);
-
         }
 
         $dislike = new Dislike();
@@ -81,7 +79,6 @@ class LikeDislikeController extends Controller
         $dislike->save();
 
         return response()->json(['success' => true, 'action' => 'dislike']);
-
     }
 
 }
