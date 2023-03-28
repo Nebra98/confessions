@@ -73,4 +73,70 @@ class LikeDislikeCommentController extends Controller
         ]);
 
     }
+
+    public function dislike(Request $request)
+    {
+        $comment_id = $request->input('comment_id');
+        $user_id = Auth::id();
+        $comment = Comment::findOrFail($comment_id);
+
+        $like = LikeComment::where('comment_id', $comment_id)->where('user_id', $user_id)->first();
+
+        if($like)
+        {
+            $like->delete();
+
+            $dislike = new DislikeComment();
+            $dislike->comment_id = $comment_id;
+            $dislike->user_id = $user_id;
+            $dislike->save();
+
+            $likesCommentCount = $comment->likes()->count();
+            $dislikesCommentCount = $comment->dislikes()->count();
+
+            return response()->json([
+                'success' => true,
+                'action' => 'dislike',
+                'likesCommentCount' => $likesCommentCount,
+                'dislikesCommentCount' => $dislikesCommentCount
+            ]);
+
+        }
+
+        $dislike = DislikeComment::where('comment_id', $comment_id)->where('user_id', $user_id)->first();
+
+        if($dislike)
+        {
+            $dislike->delete();
+
+            $likesCommentCount = $comment->likes()->count();
+            $dislikesCommentCount = $comment->dislikes()->count();
+
+            return response()->json([
+                'success' => true,
+                'action' => 'undislike',
+                'likesCommentCount' => $likesCommentCount,
+                'dislikesCommentCount' => $dislikesCommentCount
+            ]);
+
+        }
+
+        $dislike = new DislikeComment();
+        $dislike->comment_id = $comment_id;
+        $dislike->user_id = $user_id;
+        $dislike->save();
+
+        $likesCommentCount = $comment->likes()->count();
+        $dislikesCommentCount = $comment->dislikes()->count();
+
+        return response()->json([
+            'success' => true,
+            'action' => 'dislike',
+            'likesCommentCount' => $likesCommentCount,
+            'dislikesCommentCount' => $dislikesCommentCount
+        ]);
+
+    }
+
+
 }

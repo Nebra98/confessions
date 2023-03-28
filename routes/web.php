@@ -33,4 +33,5 @@ Route::post('like', [App\Http\Controllers\LikeDislikeController::class, 'like'])
 Route::post('dislike', [App\Http\Controllers\LikeDislikeController::class, 'dislike'])->name('dislike');
 
 Route::post('like-comment', [App\Http\Controllers\LikeDislikeCommentController::class, 'like'])->name('likeComment');
+Route::post('dislike-comment', [App\Http\Controllers\LikeDislikeCommentController::class, 'dislike'])->name('dislikeComment');
 

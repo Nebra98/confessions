@@ -92,6 +92,31 @@
             e.stopImmediatePropagation();
         });
 
+        $(document).on('click', '.dislike-comment-button', function(e) {
+            var comment_id = $(this).data('comment-id');
+
+            $.ajax({
+                url: '{{ route("dislikeComment") }}',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'comment_id': comment_id,
+                    '_token': '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    // Update the UI to show the like has been added
+
+                    var likeCommentCountId = '#likeCommentCount' + comment_id;
+                    var dislikeCommentCountId = '#dislikeCommentCount' + comment_id;
+
+                    $(likeCommentCountId).html(data.likesCommentCount);
+                    $(dislikeCommentCountId).html(data.dislikesCommentCount);
+
+                }
+            });
+            e.stopImmediatePropagation();
+        });
+
 
 
     });
