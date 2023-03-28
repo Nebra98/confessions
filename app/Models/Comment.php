@@ -33,4 +33,9 @@ class Comment extends Model
         return $this->hasMany(LikeComment::class, 'comment_id');
     }
 
+    public function dislikes()
+    {
+        return $this->hasMany(DislikeComment::class, 'comment_id');
+    }
+
 }
