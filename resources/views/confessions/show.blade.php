@@ -160,7 +160,6 @@
 
         });
 
-
         function showComments(){
             $.get("{{ URL::to('comments/commentslist/' . $confession->id) }}", function(data){
                 $('#memberBody').empty().html(data);

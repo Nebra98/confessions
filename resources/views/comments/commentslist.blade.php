@@ -36,8 +36,8 @@
             </div>
 
             <div class="card-footer">
-                <button class="btn btn-secondary btn-sm like-button" id="buttonSubmitLike" data-confession-id=""><i class="fas fa-heart"></i> Odobravam <span class="badge badge-light" id="likeCount"></span></button>
-                <button class="btn btn-secondary btn-sm dislike-button" data-confession-id=""><i class="fas fa-heart-broken"></i> Osuđujem <span class="badge badge-light" id="dislikeCount"></span></button>
+                <button class="btn btn-secondary btn-sm like-comment-button" data-comment-id="{{ $comment->id }}"><i class="fas fa-heart"></i> Odobravam <span class="badge badge-light" id="likeCommentCount{{$comment->id}}">{{count($comment->likes)}}</span></button>
+                <button class="btn btn-secondary btn-sm dislike-comment-button" data-comment-id="{{ $comment->id }}"><i class="fas fa-heart-broken"></i> Osuđujem <span class="badge badge-light" id="dislikeCommentCount{{$comment->id}}">{{count($comment->dislikes)}}</span></button>
            <a class="btn btn-secondary btn-sm btn-reply" role="button" aria-disabled="true"
                                         onclick="postReply({{ $comment->id }})"><i class="fas fa-reply"></i> Odgovori</a>
 
@@ -55,3 +55,46 @@
 @empty
     Ispovest nema komentara
 @endforelse
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $(document).on('click', '.like-comment-button', function(e) {
+            var comment_id = $(this).data('comment-id');
+
+            $.ajax({
+                url: '{{ route("likeComment") }}',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'comment_id': comment_id,
+                    '_token': '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    // Update the UI to show the like has been added
+
+                    var likeCommentCountId = '#likeCommentCount' + comment_id;
+
+                    var dislikeCommentCountId = '#dislikeCommentCount' + comment_id;
+
+                    $(likeCommentCountId).html(data.likesCommentCount);
+                    $(dislikeCommentCountId).html(data.dislikesCommentCount);
+
+                }
+            });
+            e.stopImmediatePropagation();
+        });
+
+
+
+    });
+
+
+</script>

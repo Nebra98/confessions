@@ -32,3 +32,5 @@ Route::resource('comments', \App\Http\Controllers\CommentController::class);
 Route::post('like', [App\Http\Controllers\LikeDislikeController::class, 'like'])->name('like');
 Route::post('dislike', [App\Http\Controllers\LikeDislikeController::class, 'dislike'])->name('dislike');
 
+Route::post('like-comment', [App\Http\Controllers\LikeDislikeCommentController::class, 'like'])->name('likeComment');
+
