@@ -35,9 +35,15 @@
 
             </div>
 
+            <div class="card-footer">
+                <button class="btn btn-secondary btn-sm like-button" id="buttonSubmitLike" data-confession-id=""><i class="fas fa-heart"></i> Odobravam <span class="badge badge-light" id="likeCount"></span></button>
+                <button class="btn btn-secondary btn-sm dislike-button" data-confession-id=""><i class="fas fa-heart-broken"></i> Osuđujem <span class="badge badge-light" id="dislikeCount"></span></button>
            <a class="btn btn-secondary btn-sm btn-reply" role="button" aria-disabled="true"
-                                        onclick="postReply({{ $comment->id }})">Odgovori</a>
-            <hr>
+                                        onclick="postReply({{ $comment->id }})"><i class="fas fa-reply"></i> Odgovori</a>
+
+            </div>
+
+
             @if(count($comment->replies))
                 <div class="replies">
                     @include('comments.commentslist', ['comments' => $comment->replies])
