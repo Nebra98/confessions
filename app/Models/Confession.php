@@ -36,5 +36,9 @@ class Confession extends Model
 
     }
 
+    public function saveConfessions()
+    {
+        return $this->hasMany(SaveConfession::class, 'confession_id');
+    }
 
 }
