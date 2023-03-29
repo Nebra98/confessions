@@ -38,7 +38,13 @@
                                                 <a href="{{ route('confessions.show', $confession) }}" role="button" class="btn btn-secondary">
                                                     <i class="fas fa-comment"></i> <span class="badge badge-light">{{count($confession->comments)}}</span>
                                                 </a>
-                                                <button class="btn btn-secondary float-end save-confession" data-confession-id="{{ $confession->id }}"><i class="fa-sharp fa-solid fa-bookmark"></i> Save</button>
+                                                @auth
+                                                @if (\App\Models\SaveConfession::where('confession_id', $confession->id)->where('user_id', auth()->user()->id)->first())
+                                                    <button class="btn btn-secondary float-end save-confession" data-confession-id="{{ $confession->id }}" id="saveConfessionButton{{$confession->id}}"><i class="fa-sharp fa-solid fa-bookmark"></i> Unsaved</button>
+                                                @else
+                                                    <button class="btn btn-secondary float-end save-confession" data-confession-id="{{ $confession->id }}" id="saveConfessionButton{{$confession->id}}"><i class="fa-sharp fa-solid fa-bookmark"></i> Save</button>
+                                                @endif
+                                                @endauth
                                             </div>
                                         </div>
                                     </div>
@@ -126,6 +132,15 @@
 
                     $('#saveConfessionCount').html(data.savedConfessionCount);
                     console.log(data.action);
+                    var ifIsSaved = '#saveConfessionButton' + confession_id;
+                    if(data.action == 'unsaved'){
+                        $(ifIsSaved).html('<i class="fa-sharp fa-solid fa-bookmark"></i> Save');
+                    }else{
+                        $(ifIsSaved).html('<i class="fa-sharp fa-solid fa-bookmark"></i> Unsaved');
+                    }
+
+                    //$('#saveConfessionButton').html('Save');
+                    //$('#saveConfessionButton').html('Unsave');
 
                 }
             });
