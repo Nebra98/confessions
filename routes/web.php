@@ -35,3 +35,6 @@ Route::post('dislike', [App\Http\Controllers\LikeDislikeController::class, 'disl
 Route::post('like-comment', [App\Http\Controllers\LikeDislikeCommentController::class, 'like'])->name('likeComment');
 Route::post('dislike-comment', [App\Http\Controllers\LikeDislikeCommentController::class, 'dislike'])->name('dislikeComment');
 
+Route::post('save-confession', [App\Http\Controllers\SaveConfessionController::class, 'saveConfession'])->name('saveConfession');
+
+

@@ -38,7 +38,7 @@
                                                 <a href="{{ route('confessions.show', $confession) }}" role="button" class="btn btn-secondary">
                                                     <i class="fas fa-comment"></i> <span class="badge badge-light">{{count($confession->comments)}}</span>
                                                 </a>
-
+                                                <button class="btn btn-secondary float-end save-confession" data-confession-id="{{ $confession->id }}"><i class="fa-sharp fa-solid fa-bookmark"></i> Save</button>
                                             </div>
                                         </div>
                                     </div>
@@ -109,6 +109,28 @@
                 }
             });
         });
+
+        $(document).on('click', '.save-confession', function() {
+            var confession_id = $(this).data('confession-id');
+
+            $.ajax({
+                url: '{{ route("saveConfession") }}',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'confession_id': confession_id,
+                    '_token': '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    // Update the UI to show the dislike has been added
+
+                    $('#saveConfessionCount').html(data.savedConfessionCount);
+                    console.log(data.action);
+
+                }
+            });
+        });
+
     });
 
 </script>

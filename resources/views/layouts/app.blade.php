@@ -85,10 +85,14 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa-sharp fa-solid fa-bookmark text-secondary"></i> Saved Confessions <span class="badge bg-secondary" id="saveConfessionCount">{{count(Auth::user()->saveConfessions)}}</span>
+                                </a>
+
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    <i class="fa-solid fa-right-from-bracket text-secondary"></i> {{ __('Logout') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
