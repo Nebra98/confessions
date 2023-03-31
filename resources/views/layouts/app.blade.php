@@ -85,7 +85,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('savedConfession') }}">
                                     <i class="fa-sharp fa-solid fa-bookmark text-secondary"></i> Saved Confessions <span class="badge bg-secondary" id="saveConfessionCount">{{count(Auth::user()->saveConfessions)}}</span>
                                 </a>
 

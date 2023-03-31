@@ -37,4 +37,7 @@ Route::post('dislike-comment', [App\Http\Controllers\LikeDislikeCommentControlle
 
 Route::post('save-confession', [App\Http\Controllers\SaveConfessionController::class, 'saveConfession'])->name('saveConfession');
 
+Route::get('saved-confessions', [App\Http\Controllers\SaveConfessionController::class, 'index'])->name('savedConfession');
+
+
 

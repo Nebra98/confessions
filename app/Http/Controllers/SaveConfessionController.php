@@ -3,11 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\SaveConfession;
+use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SaveConfessionController extends Controller
 {
+
+    public function index()
+    {
+        $user = \App\Models\User::find(Auth::id());
+        $saved_confessions = $user->saveConfessions()->with('confession')->get();
+
+        return view('savedConfessions.index')->with('saved_confessions', $saved_confessions);
+    }
+
     public function saveConfession(Request $request)
     {
         $confession_id = $request->input('confession_id');
