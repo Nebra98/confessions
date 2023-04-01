@@ -21,6 +21,38 @@
                                 $count = 1;
                             @endphp
 
+                            @guest
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalForLike" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Sviđa vam se ova ispovijest?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="mb-0 mb-3">Prijavite se kako bi se vaše mišljenje računalo.</p>
+                                            <a role="button" href="{{ route('login') }}" class="btn btn-secondary">Prijavi se</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalForDislike" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Ne sviđa vam se ova ispovijest?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="mb-0 mb-3">Prijavite se kako bi se vaše mišljenje računalo.</p>
+                                            <a role="button" href="{{ route('login') }}" class="btn btn-secondary">Prijavi se</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endguest
                         @forelse($confessions as $confession)
                                 <div class="row mb-3">
                                     <div class="col-md-12">
@@ -55,6 +87,10 @@
                                                     @endif
                                                 </div>
                                                 @endauth
+                                                    @guest
+                                                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalForLike"><i class="fa-regular fa-thumbs-up"></i> <span class="badge badge-light">{{count($confession->likes)}}</span></button>
+                                                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalForDislike"><i class="fa-regular fa-thumbs-down fa-flip-horizontal"></i> <span class="badge badge-light">{{count($confession->dislikes)}}</span></button>
+                                                    @endguest
                                                 <a href="{{ route('confessions.show', $confession) }}" role="button" class="btn btn-secondary">
                                                     <i class="fas fa-comment"></i> <span class="badge badge-light">{{count($confession->comments)}}</span>
                                                 </a>
@@ -78,6 +114,7 @@
                             @empty
                                 {{ __('Ne postoji ni jedna ispovijest u sustavu!') }}
                         @endforelse
+
                     </div>
                     <div class="d-flex justify-content-center">
                         {!! $confessions->links() !!}
@@ -188,4 +225,3 @@
     });
 
 </script>
-

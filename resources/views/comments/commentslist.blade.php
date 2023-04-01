@@ -26,6 +26,38 @@
 
 </style>
 
+@guest
+<!-- Modal -->
+<div class="modal fade" id="modalForLikeComment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sviđa vam se ovaj komentar?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0 mb-3">Prijavite se kako bi se vaše mišljenje računalo.</p>
+                <a role="button" href="{{ route('login') }}" class="btn btn-secondary">Prijavi se</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalForDislikeComment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ne sviđa vam se ovaj komentar?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0 mb-3">Prijavite se kako bi se vaše mišljenje računalo.</p>
+                <a role="button" href="{{ route('login') }}" class="btn btn-secondary">Prijavi se</a>
+            </div>
+        </div>
+    </div>
+</div>
+@endguest
 
 @forelse($comments as $comment)
     <div class="row">
@@ -59,6 +91,10 @@
                             <button class="btn btn-secondary dislike-comment-button" data-comment-id="{{ $comment->id }}" id="commentdislikeButton{{$comment->id}}"><i class="fa-regular fa-thumbs-down fa-flip-horizontal"></i> <span class="badge badge-light" id="dislikeCommentCount{{$comment->id}}">{{count($comment->dislikes)}}</span></button>
                     @endif
                     @endauth
+                        @guest
+                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalForLikeComment"><i class="fa-regular fa-thumbs-up"></i> <span class="badge badge-light">{{count($comment->likes)}}</span></button>
+                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalForDislikeComment"><i class="fa-regular fa-thumbs-down fa-flip-horizontal"></i> <span class="badge badge-light">{{count($comment->dislikes)}}</span></button>
+                        @endguest
                 </div>
 
                 <a role="button" class="btn btn-secondary btn-reply" aria-disabled="true" onclick="postReply({{ $comment->id }})"><i class="fas fa-reply"></i></a>

@@ -16,6 +16,38 @@
                                 {{ session('status') }}
                             </div>
                         @endif
+                            @guest
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalForLike" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Sviđa vam se ova ispovijest?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="mb-0 mb-3">Prijavite se kako bi se vaše mišljenje računalo.</p>
+                                            <a role="button" href="{{ route('login') }}" class="btn btn-secondary">Prijavi se</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalForDislike" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Ne sviđa vam se ova ispovijest?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="mb-0 mb-3">Prijavite se kako bi se vaše mišljenje računalo.</p>
+                                            <a role="button" href="{{ route('login') }}" class="btn btn-secondary">Prijavi se</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endguest
 
                             <div class="row mb-3">
                                 <div class="col-md-12">
@@ -48,18 +80,21 @@
                                                 </div>
                                             @endauth
 
-                                            <a href="{{ route('confessions.show', $confession) }}" role="button" class="btn btn-secondary">
-                                                <i class="fas fa-comment"></i> <span class="badge badge-light">{{count($confession->comments)}}</span>
-                                            </a>
+                                                @guest
+                                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalForLike"><i class="fa-regular fa-thumbs-up"></i> <span class="badge badge-light">{{count($confession->likes)}}</span></button>
+                                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalForDislike"><i class="fa-regular fa-thumbs-down fa-flip-horizontal"></i> <span class="badge badge-light">{{count($confession->dislikes)}}</span></button>
+                                                @endguest
                                             @auth
-                                            @if (\App\Models\SaveConfession::where('confession_id', $confession->id)->where('user_id', auth()->user()->id)->first())
-                                                <button class="btn btn-secondary float-end save-confession" data-confession-id="{{ $confession->id }}" id="saveConfessionButton{{$confession->id}}"><i class="fa-solid fa-bookmark"></i></button>
-                                            @else
-                                                <button class="btn btn-secondary float-end save-confession" data-confession-id="{{ $confession->id }}" id="saveConfessionButton{{$confession->id}}"><i class="fa-regular fa-bookmark"></i>
+                                                @if (\App\Models\SaveConfession::where('confession_id', $confession->id)->where('user_id', auth()->user()->id)->first())
+                                                        <button class="btn btn-secondary float-end save-confession" data-confession-id="{{ $confession->id }}" id="saveConfessionButton{{$confession->id}}"><i class="fa-solid fa-bookmark"></i></button>
+                                                    @else
+                                                        <button class="btn btn-secondary float-end save-confession" data-confession-id="{{ $confession->id }}" id="saveConfessionButton{{$confession->id}}"><i class="fa-regular fa-bookmark"></i>
                                                 </button>
-                                            @endif
-                                            @endauth
-
+                                                    @endif
+                                                @endauth
+                                                <a href="{{ route('confessions.show', $confession) }}" role="button" class="btn btn-secondary">
+                                                    <i class="fas fa-comment"></i> <span class="badge badge-light">{{count($confession->comments)}}</span>
+                                                </a>
                                         </div>
                                     </div>
                                 </div>
