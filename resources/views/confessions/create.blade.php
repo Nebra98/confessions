@@ -25,7 +25,7 @@
                             @enderror
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-secondary">Submit</button>
+                    <button type="submit" class="btn btn-secondary"><i class="fa-solid fa-feather"></i> Ostavi ispovijed</button>
                 </form>
             </div>
         </div>
@@ -41,9 +41,9 @@
         var helper = $(this).next(".form-text");
         // Switch to the singular if there's exactly 1 character remaining
         if (counter !== 1) {
-            helper.text(counter + " characters remaining");
+            helper.text('Preostalo znakova: ' + counter);
         } else {
-            helper.text(counter + " character remaining");
+            helper.text(counter + "  znak preostao");
         }
         // Make it red if there are 0 characters remaining
         if (counter === 0) {

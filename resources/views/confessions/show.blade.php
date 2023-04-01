@@ -118,7 +118,7 @@
                                     <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Enter your comment"></textarea>
                                 </div>
 
-                                <button class="btn btn-secondary btn-submit" id="buttonSubmit">Submit</button>
+                                <button class="btn btn-secondary btn-submit" id="buttonSubmit"><i class="fas fa-comment-plus"></i> <i class="fas fa-comment-medical"></i> Ostavi komentar</button>
 
                             </form>
                             <hr>
