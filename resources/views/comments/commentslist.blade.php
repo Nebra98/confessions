@@ -18,6 +18,12 @@
         border-left-color: blue;
 
     }
+
+    .vl {
+        border-left: 4px solid #ccc;
+        height: 36px;
+    }
+
 </style>
 
 
@@ -36,10 +42,26 @@
             </div>
 
             <div class="card-footer">
-                <button class="btn btn-secondary btn-sm like-comment-button" data-comment-id="{{ $comment->id }}"><i class="fas fa-heart"></i> Odobravam <span class="badge badge-light" id="likeCommentCount{{$comment->id}}">{{count($comment->likes)}}</span></button>
-                <button class="btn btn-secondary btn-sm dislike-comment-button" data-comment-id="{{ $comment->id }}"><i class="fas fa-heart-broken"></i> Osuđujem <span class="badge badge-light" id="dislikeCommentCount{{$comment->id}}">{{count($comment->dislikes)}}</span></button>
-           <a class="btn btn-secondary btn-sm btn-reply" role="button" aria-disabled="true"
-                                        onclick="postReply({{ $comment->id }})"><i class="fas fa-reply"></i> Odgovori</a>
+
+                <div class="btn-group btn-group-sm" role="group">
+                    @auth
+                    @if($comment->likes->where('user_id', auth()->user()->id)->count() > 0)
+                        <button class="btn btn-secondary like-comment-button" data-comment-id="{{ $comment->id }}" id="commentlikeButton{{$comment->id}}"><i class="fa-solid fa-thumbs-up"></i> <span class="badge badge-light" id="likeCommentCount{{$comment->id}}">{{count($comment->likes)}}</span></button>
+                    @endif
+                    @if($comment->likes->where('user_id', auth()->user()->id)->count() == 0)
+                        <button class="btn btn-secondary like-comment-button" data-comment-id="{{ $comment->id }}" id="commentlikeButton{{$comment->id}}"><i class="fa-regular fa-thumbs-up"></i> <span class="badge badge-light" id="likeCommentCount{{$comment->id}}">{{count($comment->likes)}}</span></button>
+                    @endif
+                    <div class="vl"></div>
+                    @if($comment->dislikes->where('user_id', auth()->user()->id)->count() > 0)
+                        <button class="btn btn-secondary dislike-comment-button" data-comment-id="{{ $comment->id }}" id="commentdislikeButton{{$comment->id}}"><i class="fa-solid fa-thumbs-down fa-flip-horizontal"></i> <span class="badge badge-light" id="dislikeCommentCount{{$comment->id}}">{{count($comment->dislikes)}}</span></button>
+                    @endif
+                    @if($comment->dislikes->where('user_id', auth()->user()->id)->count() == 0)
+                            <button class="btn btn-secondary dislike-comment-button" data-comment-id="{{ $comment->id }}" id="commentdislikeButton{{$comment->id}}"><i class="fa-regular fa-thumbs-down fa-flip-horizontal"></i> <span class="badge badge-light" id="dislikeCommentCount{{$comment->id}}">{{count($comment->dislikes)}}</span></button>
+                    @endif
+                    @endauth
+                </div>
+
+                <a role="button" class="btn btn-secondary btn-reply" aria-disabled="true" onclick="postReply({{ $comment->id }})"><i class="fas fa-reply"></i></a>
 
             </div>
 
@@ -80,12 +102,19 @@
                 success: function(data) {
                     // Update the UI to show the like has been added
 
-                    var likeCommentCountId = '#likeCommentCount' + comment_id;
+                    var likeButtonChange = '#commentlikeButton' + comment_id;
+                    var dislikeButtonChange = '#commentdislikeButton' + comment_id;
 
-                    var dislikeCommentCountId = '#dislikeCommentCount' + comment_id;
-
-                    $(likeCommentCountId).html(data.likesCommentCount);
-                    $(dislikeCommentCountId).html(data.dislikesCommentCount);
+                    if(data.action == 'like'){
+                        $(likeButtonChange).html('<i class="fa-solid fa-thumbs-up"></i> <span class="badge badge-light">' + data.likesCommentCount + '</span>');
+                    }
+                    if(data.action == 'unlike'){
+                        $(likeButtonChange).html('<i class="fa-regular fa-thumbs-up"></i> <span class="badge badge-light">' + data.likesCommentCount + '</span>');
+                    }
+                    if(data.action == 'like-dislike-remove'){
+                        $(likeButtonChange).html('<i class="fa-solid fa-thumbs-up"></i> <span class="badge badge-light">' + data.likesCommentCount + '</span>');
+                        $(dislikeButtonChange).html('<i class="fa-regular fa-thumbs-down fa-flip-horizontal"></i> <span class="badge badge-light">' + data.dislikesCommentCount + '</span>');
+                    }
 
                 }
             });
@@ -106,11 +135,19 @@
                 success: function(data) {
                     // Update the UI to show the like has been added
 
-                    var likeCommentCountId = '#likeCommentCount' + comment_id;
-                    var dislikeCommentCountId = '#dislikeCommentCount' + comment_id;
+                    var likeButtonChange = '#commentlikeButton' + comment_id;
+                    var dislikeButtonChange = '#commentdislikeButton' + comment_id;
 
-                    $(likeCommentCountId).html(data.likesCommentCount);
-                    $(dislikeCommentCountId).html(data.dislikesCommentCount);
+                    if(data.action == 'dislike'){
+                        $(dislikeButtonChange).html('<i class="fa-solid fa-thumbs-down fa-flip-horizontal"></i> <span class="badge badge-light">' + data.dislikesCommentCount + '</span>');
+                    }
+                    if(data.action == 'undislike'){
+                        $(dislikeButtonChange).html('<i class="fa-regular fa-thumbs-down fa-flip-horizontal"></i> <span class="badge badge-light">' + data.dislikesCommentCount + '</span>');
+                    }
+                    if(data.action == 'dislike-like-remove'){
+                        $(dislikeButtonChange).html('<i class="fa-solid fa-thumbs-down fa-flip-horizontal"></i> <span class="badge badge-light">' + data.dislikesCommentCount + '</span>');
+                        $(likeButtonChange).html('<i class="fa-regular fa-thumbs-up"></i> <span class="badge badge-light">' + data.likesCommentCount + '</span>');
+                    }
 
                 }
             });

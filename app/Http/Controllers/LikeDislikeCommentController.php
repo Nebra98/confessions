@@ -32,7 +32,7 @@ class LikeDislikeCommentController extends Controller
 
             return response()->json([
                 'success' => true,
-                'action' => 'like',
+                'action' => 'like-dislike-remove',
                 'likesCommentCount' => $likesCommentCount,
                 'dislikesCommentCount' => $dislikesCommentCount
             ]);
@@ -96,7 +96,7 @@ class LikeDislikeCommentController extends Controller
 
             return response()->json([
                 'success' => true,
-                'action' => 'dislike',
+                'action' => 'dislike-like-remove',
                 'likesCommentCount' => $likesCommentCount,
                 'dislikesCommentCount' => $dislikesCommentCount
             ]);
