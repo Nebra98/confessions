@@ -75,8 +75,8 @@
 
             <div class="card-footer">
 
-                <div class="btn-group btn-group-sm" role="group">
                     @auth
+                    <div class="btn-group btn-group-sm" role="group">
                     @if($comment->likes->where('user_id', auth()->user()->id)->count() > 0)
                         <button class="btn btn-secondary like-comment-button" data-comment-id="{{ $comment->id }}" id="commentlikeButton{{$comment->id}}"><i class="fa-solid fa-thumbs-up"></i> <span class="badge badge-light" id="likeCommentCount{{$comment->id}}">{{count($comment->likes)}}</span></button>
                     @endif
@@ -90,12 +90,15 @@
                     @if($comment->dislikes->where('user_id', auth()->user()->id)->count() == 0)
                             <button class="btn btn-secondary dislike-comment-button" data-comment-id="{{ $comment->id }}" id="commentdislikeButton{{$comment->id}}"><i class="fa-regular fa-thumbs-down fa-flip-horizontal"></i> <span class="badge badge-light" id="dislikeCommentCount{{$comment->id}}">{{count($comment->dislikes)}}</span></button>
                     @endif
+                    </div>
                     @endauth
-                        @guest
+                    @guest
+                        <div class="btn-group btn-group-sm" role="group">
                             <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalForLikeComment"><i class="fa-regular fa-thumbs-up"></i> <span class="badge badge-light">{{count($comment->likes)}}</span></button>
+                            <div class="vl"></div>
                             <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalForDislikeComment"><i class="fa-regular fa-thumbs-down fa-flip-horizontal"></i> <span class="badge badge-light">{{count($comment->dislikes)}}</span></button>
-                        @endguest
-                </div>
+                        </div>
+                    @endguest
 
                 <a role="button" class="btn btn-secondary btn-reply" aria-disabled="true" onclick="postReply({{ $comment->id }})"><i class="fas fa-reply"></i></a>
 

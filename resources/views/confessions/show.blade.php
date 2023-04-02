@@ -47,6 +47,22 @@
                                     </div>
                                 </div>
                             </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="modalForSave" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Želite li ovo ponovno pogledati kasnije?</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="mb-0 mb-3">Prijavite se kako bi dodali ovu ispovijest u favorite.</p>
+                                                <a role="button" href="{{ route('login') }}" class="btn btn-secondary">Prijavi se</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endguest
 
                             <div class="row mb-3">
@@ -81,8 +97,11 @@
                                             @endauth
 
                                                 @guest
-                                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalForLike"><i class="fa-regular fa-thumbs-up"></i> <span class="badge badge-light">{{count($confession->likes)}}</span></button>
-                                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalForDislike"><i class="fa-regular fa-thumbs-down fa-flip-horizontal"></i> <span class="badge badge-light">{{count($confession->dislikes)}}</span></button>
+                                                    <div class="btn-group" role="group">
+                                                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalForLike"><i class="fa-regular fa-thumbs-up"></i> <span class="badge badge-light">{{count($confession->likes)}}</span></button>
+                                                        <div class="vl"></div>
+                                                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalForDislike"><i class="fa-regular fa-thumbs-down fa-flip-horizontal"></i> <span class="badge badge-light">{{count($confession->dislikes)}}</span></button>
+                                                    </div>
                                                 @endguest
                                             @auth
                                                 @if (\App\Models\SaveConfession::where('confession_id', $confession->id)->where('user_id', auth()->user()->id)->first())
@@ -92,6 +111,9 @@
                                                 </button>
                                                     @endif
                                                 @endauth
+                                                @guest
+                                                    <button class="btn btn-secondary float-end" data-bs-toggle="modal" data-bs-target="#modalForSave"><i class="fa-regular fa-bookmark"></i></button>
+                                                @endguest
                                                 <a href="{{ route('confessions.show', $confession) }}" role="button" class="btn btn-secondary">
                                                     <i class="fas fa-comment"></i> <span class="badge badge-light">{{count($confession->comments)}}</span>
                                                 </a>
