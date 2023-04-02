@@ -64,8 +64,8 @@
         <div class="comment cardd">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
-                    <p class="text-dark">Objavio: {{ $comment->comment_sender_name }}</p>
-                    <p class="text-dark">Objavljeno: {{ \Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}</p>
+                    <p class="text-dark"><i class="fa-solid fa-feather text-secondary"></i> {{ $comment->comment_sender_name }}</p>
+                    <p class="text-dark"><i class="fa-regular fa-clock text-secondary"></i> {{ \Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}</p>
                 </div>
             </div>
             <div class="card-body">

@@ -27,9 +27,9 @@
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between">
                                                 <p class="text-dark">#{{$save_confession->confession->id }}
-                                                    objavio: {{ $save_confession->confession->user_name }}</p>
+                                                    <i class="fa-solid fa-feather text-secondary"></i> {{ $save_confession->confession->user_name }}</p>
                                                 <p class="text-dark">
-                                                    Objavljeno: {{ \Carbon\Carbon::parse($save_confession->confession->created_at)->diffForHumans() }}</p>
+                                                    <i class="fa-regular fa-clock text-secondary"></i> {{ \Carbon\Carbon::parse($save_confession->confession->created_at)->diffForHumans() }}</p>
                                             </div>
 
                                             <a class="text-decoration-none text-dark"

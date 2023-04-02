@@ -76,8 +76,8 @@
                                         <div class="card border-dark">
                                             <div class="card-body">
                                                 <div class="d-flex justify-content-between">
-                                                    <p class="text-dark">#{{$confession->id }} objavio: {{ $confession->user_name }}</p>
-                                                    <p class="text-dark">Objavljeno: {{ \Carbon\Carbon::parse($confession->created_at)->diffForHumans() }}</p>
+                                                    <p class="text-dark">#{{$confession->id }} <i class="fa-solid fa-feather text-secondary"></i> {{ $confession->user_name }}</p>
+                                                    <p class="text-dark"><i class="fa-regular fa-clock text-secondary"></i> {{ \Carbon\Carbon::parse($confession->created_at)->diffForHumans() }}</p>
                                                 </div>
 
                                                 <a class="text-decoration-none text-dark" href="{{ route('confessions.show', $confession) }}">

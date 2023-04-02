@@ -70,8 +70,8 @@
                                     <div class="card border-dark">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between">
-                                                <p class="text-dark">#{{$confession->id }} objavio: {{ $confession->user_name }}</p>
-                                                <p class="text-dark">Objavljeno: {{ \Carbon\Carbon::parse($confession->created_at)->diffForHumans() }}</p>
+                                                <p class="text-dark">#{{$confession->id }} <i class="fa-solid fa-feather text-secondary"></i> {{ $confession->user_name }}</p>
+                                                <p class="text-dark"><i class="fa-regular fa-clock text-secondary"></i> {{ \Carbon\Carbon::parse($confession->created_at)->diffForHumans() }}</p>
                                             </div>
                                             <p class="card-text">{{ $confession->confession }}</p>
                                         </div>
@@ -132,12 +132,12 @@
                                 <input type="hidden" name="comment_id" id="commentId">
                                 <div class="form-group mb-3">
                                     <label for="name">Ime</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Unesite svoje ime">
                                 </div>
 
                                 <div class="form-group mb-3">
                                     <label for="comment">Komentar</label>
-                                    <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Enter your comment"></textarea>
+                                    <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Unesite svoj komentar"></textarea>
                                 </div>
 
                                 <button class="btn btn-secondary btn-submit" id="buttonSubmit"><i class="fas fa-comment-plus"></i> <i class="fas fa-comment-medical"></i> Ostavi komentar</button>

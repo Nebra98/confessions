@@ -46,18 +46,27 @@
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="Pretraži po tekstu ili ID-u" aria-label="Text input with segmented dropdown button">
                             <button type="submit" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="visually-hidden">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">Sortiraj</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{{ route('confessions.sortDsc') }}"><i class="fas fa-arrow-down"></i> Najnovije</a></li>
-                                <li><a class="dropdown-item" href="{{ route('confessions.sortRnd') }}"><i class="fas fa-random"></i> Slučajno</a></li>
-                                <li><a class="dropdown-item" href="{{ route('confessions.sortAsc') }}"><i class="fas fa-arrow-up"></i> Najstarije</a></li>
-                            </ul>
                         </div>
                         </form>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <i class="fa-solid fa-list"></i> Sortiraj
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('confessions.sortDsc') }}">
+                                <i class="fas fa-arrow-down"></i> Najnovije
+                            </a>
+                            <a class="dropdown-item" href="{{ route('confessions.sortRnd') }}">
+                                <i class="fas fa-random"></i> Slučajno
+                            </a>
+                            <a class="dropdown-item" href="{{ route('confessions.sortAsc') }}">
+                                <i class="fas fa-arrow-up"></i> Najstarije
+                            </a>
+                        </div>
                     </li>
 
                     <li class="nav-item">
@@ -86,13 +95,13 @@
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('savedConfession') }}">
-                                    <i class="fa-sharp fa-solid fa-bookmark text-secondary"></i> Saved Confessions <span class="badge bg-secondary" id="saveConfessionCount">{{count(Auth::user()->saveConfessions)}}</span>
+                                    <i class="fa-sharp fa-solid fa-bookmark text-secondary"></i> Spremljene ispovijesti <span class="badge bg-secondary" id="saveConfessionCount">{{count(Auth::user()->saveConfessions)}}</span>
                                 </a>
 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    <i class="fa-solid fa-right-from-bracket text-secondary"></i> {{ __('Logout') }}
+                                    <i class="fa-solid fa-right-from-bracket text-secondary"></i> {{ __('Odjavite se') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
