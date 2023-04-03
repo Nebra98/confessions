@@ -11,13 +11,17 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet'>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script src="https://kit.fontawesome.com/804834f0e7.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ asset('jquery.js') }}"></script>
 
+    <style>
+        body {
+            font-family: "Arimo", sans-serif;
+        }
+    </style>
 
 </head>
 <body>
@@ -43,10 +47,13 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <form action="/">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="search" placeholder="Pretraži po tekstu ili ID-u" aria-label="Text input with segmented dropdown button">
-                            <button type="submit" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
-                        </div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search"
+                                       placeholder="Pretraži po tekstu ili ID-u"
+                                       aria-label="Text input with segmented dropdown button">
+                                <button type="submit" class="btn btn-outline-secondary"><i class="fas fa-search"></i>
+                                </button>
+                            </div>
                         </form>
                     </li>
 
@@ -77,13 +84,15 @@
                     @guest
                         @if (Route::has('login'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Prijavi se') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}"><i
+                                        class="fas fa-sign-in-alt"></i> {{ __('Prijavi se') }}</a>
                             </li>
                         @endif
 
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}"><i class="fas fa-user-plus"></i> {{ __('Registriraj se') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}"><i
+                                        class="fas fa-user-plus"></i> {{ __('Registriraj se') }}</a>
                             </li>
                         @endif
                     @else
@@ -95,7 +104,9 @@
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('savedConfession') }}">
-                                    <i class="fa-sharp fa-solid fa-bookmark text-secondary"></i> Spremljene ispovijesti <span class="badge bg-secondary" id="saveConfessionCount">{{count(Auth::user()->saveConfessions)}}</span>
+                                    <i class="fa-sharp fa-solid fa-bookmark text-secondary"></i> Spremljene ispovijesti
+                                    <span class="badge bg-secondary"
+                                          id="saveConfessionCount">{{count(Auth::user()->saveConfessions)}}</span>
                                 </a>
 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
